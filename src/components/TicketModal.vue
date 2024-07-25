@@ -1,6 +1,6 @@
 <!-- TicketModal.vue -->
 <template>
-    <div v-if="visible" class="modal-overlay">
+    <div class="modal-overlay">
       <div class="modal-content">
         <h2>确认订单信息</h2>
         <div>
@@ -22,8 +22,9 @@
           <input id="show-time" type="datetime-local" v-model="showTime" />
         </div>
         <div>
-          <label for="ticket-price">票价:</label>
-          <input id="ticket-price" type="number" v-model="ticketPrice" />
+          <!-- <label for="ticket-price">票价:</label>
+          <input id="ticket-price" type="number" v-model="ticketPrice" /> -->
+          <span>票价：{{ props.ticketPrice }}</span>
         </div>
         <button @click="confirmPurchase">确认购买</button>
         <button @click="closeModal">取消</button>
@@ -32,9 +33,9 @@
   </template>
   
   <script setup>
-  import { ref, defineProps, defineEmits, watch } from 'vue';
+  import { ref, defineProps, defineEmits } from 'vue';
   import axios from 'axios';
-  
+
   const props = defineProps({
     modelValue: {
       type: Boolean,
@@ -51,21 +52,20 @@
     userId: {
       type: String,
       required: true
+    },
+    ticketPrice: {
+      type: Number,
+      required: true
     }
   });
   
   const emit = defineEmits(['update:modelValue']);
-  
-  const visible = ref(props.modelValue);
+
   const ticketCount = ref(1);
   const hallNumber = ref('');
   const seatNumber = ref('');
   const showTime = ref('');
   const ticketPrice = ref(0);
-  
-  watch(() => props.modelValue, (newVal) => {
-    visible.value = newVal;
-  });
   
   function increaseCount() {
     ticketCount.value++;

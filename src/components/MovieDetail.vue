@@ -16,7 +16,6 @@
         
         <div class="info">
           <div ><b>上映时间：</b>{{ movie.showTime  }}</div>
-          <!-- <div ><b>票价：</b>{{ movie.price }}</div> -->
         </div>
 
         <div class="info">
@@ -45,16 +44,20 @@
               <h3>{{ cinema.cinemaName }}</h3>
             </div>
             <div class="info"><b>地址：</b>{{ cinema.location }}</div>
-              <button class="buy-ticket-button" @click = "buyTicket()">购票</button>
-            </div>
+            <div class="info">价格：{{ cinema.ticketPrice }}￥</div>
+            <button class="buy-ticket-button" @click = "buyTicket(cinema)">购票</button>
+          </div>
         </div>
       </div>
     </div>
+    
     <ticket-modal
       v-model:modelValue="dialogVisible"
       :cinemaId="cinemaId"
       :movieId="movieId"
-      :userId="userId">
+      :userId="userId"
+      :ticketPrice="curCinema.ticketPrice"
+      v-if="dialogVisible">
     </ticket-modal>
     <movie-footer></movie-footer>
   </div>
@@ -73,7 +76,6 @@ export default {
     MovieFooter,
     MovieHeaderBackup,
     TicketModal
-    
   },
   data() {
     return {
@@ -81,6 +83,7 @@ export default {
       movie: null,
       movieId:null,
       userId:null,
+      curCinema:null
     };
   },
   created(){
@@ -111,6 +114,9 @@ export default {
           const response = await axios.post(`${config.url}movie/getCinemasByMovie/${this.movieId}`);
           if (response.data.code === 200) {
             this.cinemas = response.data.data;
+            for (const cinema of this.cinemas) {
+              cinema.ticketPrice = this.calTicketPrice(cinema.ticketPrices, this.movieId);
+            }
           }
 
         }catch(error){
@@ -124,10 +130,29 @@ export default {
       this.$router.push("/");
     },
     getPictureUrl(cinemaId) {
-        return require(`@/assets/img/cinema/cinema${cinemaId}.jpg`);
+      return require(`@/assets/img/cinema/cinema${cinemaId}.jpg`);      
     },
-    buyTicket(){
+    buyTicket(cinema){
       this.dialogVisible = true;
+      this.curCinema = cinema;
+    },
+    /**
+     * 
+     * @param { string } priceStr 
+     * @param { number } movieId 
+     */
+    calTicketPrice(priceStr, movieId) {
+      let price = 0;
+      let strs = priceStr.split(',');
+      for (const s of strs) {
+        const movie_price = s.split(':');
+        const id = +movie_price[0];
+        if (movieId == id) {
+          price = +movie_price[1];
+          break;
+        }
+      }
+      return price;
     }
   }
 };
