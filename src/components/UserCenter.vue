@@ -1,6 +1,10 @@
 <template>
+    <movie-header-backup></movie-header-backup>
     <div id="content-area">
         <div id="avatar">{{ user.first_letter }}</div>
+        <div id="username">{{ user.name }}</div>
+        <div id="gender">{{ user.gender }}</div>
+        <div id="age">{{ user.age }}</div>
         <div @click="logout()">登出</div>
     </div>
     <!-- <span id="username">fd</span> -->
@@ -8,6 +12,7 @@
 </template>
 
 <script setup>
+    import MovieHeaderBackup from './MovieHeaderBackup.vue';
     import { reactive } from 'vue';
     import axios from 'axios';
     import router from '..';
@@ -30,10 +35,6 @@
                 user.age = data.age;
                 user.gender = data.gender;
                 user.first_letter = user.name[0].toUpperCase();
-
-                // 下面只是测试订单
-                const res = await axios.get(`/orders/${user.id}`);
-                console.log(res);
             } else {
                 // 判定为没有登录，转到登录界面
                 router.push("/login");
@@ -48,6 +49,7 @@
         try {
             // 登出
             axios.post("/doLogout", token);
+            localStorage.setItem("jwt", "");
             // 跳到主页
             router.push("/")
         } catch (error) {
@@ -63,7 +65,6 @@
         display: flex;
         width: 70%;
         margin: 100px auto;
-        background-color: aqua;
     }
 
     #avatar {
@@ -75,7 +76,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 25px;
+        border-radius: 40px;
         font-weight: bold;
     }
 </style>

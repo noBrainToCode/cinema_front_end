@@ -88,9 +88,11 @@ export default {
   },
   created(){
     const token = localStorage.getItem('jwt');
-    if (token) {
+    if (token && token.length != 0) {
       const decoded = decodeJWT2Obj(token);
       this.userId = decoded.payload.userId; // 假设用户名在 JWT 的 sub 字段中
+    } else {
+      this.userId = null;
     }
     this.fetchMovieDetail();
     this.fetchCinemasByMovie();
@@ -132,7 +134,11 @@ export default {
     getPictureUrl(cinemaId) {
       return require(`@/assets/img/cinema/cinema${cinemaId}.jpg`);      
     },
-    buyTicket(cinema){
+    async buyTicket(cinema){
+      if (!this.userId) {
+        this.$router.push("/login");
+        return;
+      }
       this.dialogVisible = true;
       this.curCinema = cinema;
     },
