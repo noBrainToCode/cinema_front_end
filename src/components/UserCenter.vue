@@ -30,6 +30,10 @@
                 user.age = data.age;
                 user.gender = data.gender;
                 user.first_letter = user.name[0].toUpperCase();
+
+                // 下面只是测试订单
+                const res = await axios.get(`/orders/${user.id}`);
+                console.log(res);
             } else {
                 // 判定为没有登录，转到登录界面
                 router.push("/login");
