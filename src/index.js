@@ -7,7 +7,7 @@ import CinemaContent from './components/CinemaContent.vue';
 import UserLogin from './components/UserLogin.vue';
 import CinemaDetail from './components/CinemaDetail.vue';
 import UserRegister from './components/UserRegister.vue';
-// import jwtDecode from 'jwt-decode';
+import UserCenter from './components/UserCenter.vue';
 
 const routes = [
   {  
@@ -38,6 +38,11 @@ const routes = [
     path: '/register',
     component: UserRegister,
     name: 'register'
+  },
+  {
+    path: '/user',
+    component: UserCenter,
+    name: 'UserCenter'
   }
 ];
 

@@ -10,7 +10,6 @@ axios.defaults.baseURL = config.url;
 axios.interceptors.request.use(
     (config) => {
       const token = localStorage.getItem('jwt');
-      console.log(token)
       if (token) {
         config.headers.token = `${token}`;//注意看后端是不是只认token
       }

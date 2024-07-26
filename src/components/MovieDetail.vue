@@ -91,9 +91,7 @@ export default {
     if (token) {
       const decoded = decodeJWT2Obj(token);
       this.userId = decoded.payload.userId; // 假设用户名在 JWT 的 sub 字段中
-      console.log(this.userId);
     }
-    // console.log(this.userId);
     this.fetchMovieDetail();
     this.fetchCinemasByMovie();
   },
