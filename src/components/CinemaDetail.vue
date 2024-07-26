@@ -101,6 +101,9 @@ export default {
       getPosterUrl(posterName) {
         return require(`@/assets/img/movie_posts/${posterName}`);
       },
+      goToMovieDetail(movieId) {
+        this.$router.push(`/movie/${movieId}`);
+      }
     }
 }
 </script>

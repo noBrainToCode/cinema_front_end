@@ -44,7 +44,7 @@
               <h3>{{ cinema.cinemaName }}</h3>
             </div>
             <div class="info"><b>地址：</b>{{ cinema.location }}</div>
-            <div class="info">价格：{{ cinema.ticketPrice }}￥</div>
+            <div class="info">价格：{{ cinema.ticketPrice }}￥/张</div>
             <button class="buy-ticket-button" @click = "buyTicket(cinema)">购票</button>
           </div>
         </div>
@@ -69,7 +69,7 @@ import MovieFooter from './MovieFooter.vue';
 import MovieHeaderBackup from './MovieHeaderBackup.vue';
 import config from '@/config';
 import TicketModal from './TicketModal.vue';
-import jwtDecode from 'jwt-decode';
+import decodeJWT2Obj from '@/tools';
 
 export default {
   components: {
@@ -87,11 +87,13 @@ export default {
     };
   },
   created(){
-    const token = localStorage.getItem('jwtToken');
+    const token = localStorage.getItem('jwt');
     if (token) {
-      const decoded = jwtDecode(token);
-      this.userId = decoded.sub; // 假设用户名在 JWT 的 sub 字段中
+      const decoded = decodeJWT2Obj(token);
+      this.userId = decoded.payload.userId; // 假设用户名在 JWT 的 sub 字段中
+      console.log(this.userId);
     }
+    // console.log(this.userId);
     this.fetchMovieDetail();
     this.fetchCinemasByMovie();
   },
