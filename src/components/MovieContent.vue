@@ -15,9 +15,9 @@
       </div>
     </div>
     <div class="pagination">
-      <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
-      <span>Page {{ currentPage }} of {{ totalPages }}</span>
-      <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
+      <button @click="prevPage" :disabled="currentPage === 1" class="page-btn">上一页</button>
+      <span> {{ currentPage }} / {{ totalPages }}</span>
+      <button @click="nextPage" :disabled="currentPage === totalPages" class="page-btn">下一页</button>
     </div>
   </div>
   <movie-footer></movie-footer>
@@ -95,16 +95,25 @@ export default {
 .pagination {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 20px 0;
-}
-
-.pagination button {
-  margin: 0 10px;
-  padding: 10px 20px;
 }
 
 .movie-poster {
   height: 444.44px;
 }
 
+.page-btn {
+  background-color: white;
+  border: 1px gray solid;
+  margin: 0 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.page-btn:hover {
+  cursor: pointer;
+  border: 1px solid rgb(206, 29, 88);
+  color: rgb(206, 29, 88);
+}
 </style>

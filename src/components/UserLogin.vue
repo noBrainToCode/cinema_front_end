@@ -8,9 +8,6 @@
           <input type="text" placeholder="Username" v-model="username" autofocus>
           <input type="password" placeholder="Password" v-model="password">
           <a class="register-btn" href="" @click="toRegister">没有账号？点击注册</a>
-          <!-- <span class="login-error">
-            <span v-if="error">{{ errorMessage }}</span>
-          </span> -->
           <input type="submit" :class="errorShake ? 'shake-horizontal shake-constant' : ''" value="Login">
         </form>
       </div>
@@ -20,7 +17,6 @@
   <script>
 import axios from 'axios';
 import config from '@/config';
-// import config from '@/config';
   export default {
     data() {
       return {
