@@ -26,8 +26,7 @@
           <div><b>内容梗概：</b></div>
         </div>
         <div class="synopsis">
-          
-          <p>{{ movie.summary  }}</p>
+          <p>{{ movie.summary }}</p>
         </div>
         
         
@@ -39,11 +38,11 @@
         <span style="font-size: 20px; color: #ff69b4;">上映院线列表▶️</span><br>
         <div class="grid" style="background: white;">
           <div class="card" style="width: 200px;" v-for="(cinema, index) in cinemas" :key="index">
-            <img :src="getPictureUrl(cinema.cinemaId)" alt="Cinema Picture" />
+            <img :src="getPictureUrl(cinema.cinemaId)" alt="Cinema Picture" class="cinema-pic"/>
             <div class="info">
               <h3>{{ cinema.cinemaName }}</h3>
             </div>
-            <div class="info"><b>地址：</b>{{ cinema.location }}</div>
+            <div class="info"><b>地址</b>{{ cinema.location }}</div>
             <div class="info">价格：{{ cinema.ticketPrice }}￥/张</div>
             <button class="buy-ticket-button" @click = "buyTicket(cinema)">购票</button>
           </div>
@@ -171,6 +170,10 @@ export default {
 
 <style scoped>
 /* 添加一些基本样式以提高视觉效果 */
+p {
+  text-align: left;
+}
+
 .movie-details {
   display: flex;
   flex-direction: column;
@@ -201,9 +204,13 @@ export default {
   max-width: 600px;
 }
 
+.cinema-pic {
+  height: 143.4px;
+  width: fit-content;
+}
+
 .buy-ticket-button {
-  margin-top: 20px;
-  margin-left:30px;
+  margin: 20px auto;
   padding: 10px 20px;
   background-color: #007bff;
   color: white;

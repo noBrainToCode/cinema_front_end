@@ -21,12 +21,12 @@
         <span style="font-size: 20px; color: #ff69b4;">近期热映▶️</span><br>
         <div class="grid" style="background: white;">
           <div class="card" style="width: 200px;" v-for="(movie, index) in movies" :key="index" @click="goToMovieDetail(movie.movieId)">
-            <img :src="getPosterUrl(movie.posterName)" alt="Movie Poster" />
+            <img :src="getPosterUrl(movie.posterName)" alt="Movie Poster" class="movie-poster"/>
             <div class="info">
               <h3>{{ movie.movieName }}</h3>
             </div>
-            <div>
-              <span><b>上映时间：</b>{{ movie. showTime}}</span>
+            <div class="showtime-info">
+              <span><b>上映时间：</b>{{ movie. showTime }}</span>
             </div>
           </div>
         </div>
@@ -108,6 +108,17 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  .movie-poster {
+    width: 200px;
+    height: 295.55px;
+  }
 
+  .info {
+    height: 95px;
+  }
+
+  .showtime-info {
+    margin-bottom: 20px;
+  }
 </style>

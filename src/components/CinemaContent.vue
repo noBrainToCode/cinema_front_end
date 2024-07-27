@@ -3,7 +3,7 @@
   <div>
     <div class="grid">
       <div class="card" v-for="(cinema, index) in cinemas" :key="index">
-        <img :src="getPictureUrl(cinema.cinemaId)" alt="Cinema Picture" />
+        <img :src="getPictureUrl(cinema.cinemaId)" alt="Cinema Picture" class="cinema-pic"/>
         <!-- 因为数据库里面没有做电影名的返回值，所以使用cinemaId代替 -->
         <div class="info">
           <h3>{{ cinema.cinemaName }}</h3>
@@ -70,5 +70,14 @@ export default {
 .pagination button {
   margin: 0 10px;
   padding: 10px 20px;
+}
+
+.cinema-pic {
+  width: 300px;
+  height: 200px;
+}
+
+.buy-ticket-button {
+  margin-bottom: 20px;
 }
 </style>

@@ -6,7 +6,7 @@
     <div>
         <div class="grid">
             <div class="card" v-for="movie in movies.arr" @click="goToMovieDetail(movie.movieId)">
-                <img :src="getPosterUrl(movie.posterName)" alt="Movie Poster" />
+                <img :src="getPosterUrl(movie.posterName)" alt="Movie Poster" class="movie-poster"/>
                 <div class="info"><h3>{{ movie.movieName }}</h3></div>
                 <div class="info">
                 <span><b>评分：</b>{{ movie.rate }}</span>
@@ -61,3 +61,9 @@
 
     fetchMovies(router.currentRoute.value.params.partText);
 </script>
+
+<style scoped>
+    .movie-poster {
+        height: 444.44px;
+    }
+</style>

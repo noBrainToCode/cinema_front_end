@@ -6,7 +6,7 @@
   <div>
     <div class="grid">
       <div class="card" v-for="(movie, index) in movies" :key="index" @click="goToMovieDetail(movie.movieId)">
-        <img :src="getPosterUrl(movie.posterName)" alt="Movie Poster" />
+        <img :src="getPosterUrl(movie.posterName)" alt="Movie Poster" class="movie-poster"/>
         <div class="info"><h3>{{ movie.movieName }}</h3></div>
         <div class="info">
           <span><b>评分：</b>{{ movie.rate }}</span>
@@ -102,4 +102,9 @@ export default {
   margin: 0 10px;
   padding: 10px 20px;
 }
+
+.movie-poster {
+  height: 444.44px;
+}
+
 </style>
