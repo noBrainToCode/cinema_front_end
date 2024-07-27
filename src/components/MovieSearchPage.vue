@@ -1,5 +1,8 @@
 <template>
     <movie-header-backup></movie-header-backup>
+    <div class="search-bar">
+        <input type="text" placeholder="Search" @keydown="SearchButtonDown" v-model="search"/>
+    </div>
     <div>
         <div class="grid">
             <div class="card" v-for="movie in movies.arr" @click="goToMovieDetail(movie.movieId)">
@@ -17,16 +20,17 @@
 <script setup>
     import axios from 'axios';
     import MovieHeaderBackup from './MovieHeaderBackup.vue';
-    import { reactive } from 'vue';
+    import { reactive, ref } from 'vue';
     import router from '..';
     
     const movies = reactive({
         arr: []
     });
 
-    async function fetchMovies() {
+    const search = ref('');
+
+    async function fetchMovies(partText) {
         try {
-            const partText = router.currentRoute.value.params.partText;
             const response = await axios.get(`/searchMovies/${partText}`);
             if (response.data.code == 200) {
                 movies.arr = response.data.data;
@@ -44,5 +48,16 @@
         return require(`@/assets/img/movie_posts/${posterName}`);
     }
 
-    fetchMovies();
+    function SearchButtonDown(event) {
+        if (event.code == "Enter") {
+            // 如果没有输入，就退回主页
+            if (search.value.length == 0) {
+                router.push("/");
+            } else {
+                fetchMovies(search.value)
+            }
+        }
+    }
+
+    fetchMovies(router.currentRoute.value.params.partText);
 </script>
