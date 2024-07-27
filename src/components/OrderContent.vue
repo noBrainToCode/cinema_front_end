@@ -7,7 +7,6 @@
 </template>
 
 <script setup>
-    import decodeJWT2Obj from '@/tools';
     import MovieHeaderBackup from './MovieHeaderBackup.vue';
     import OrderCard from './OrderCard.vue';
     import { reactive, ref } from 'vue';

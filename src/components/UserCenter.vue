@@ -123,11 +123,14 @@
     }
 
     #intro-left {
-        width: 20%;
+        margin-right: 70px;
+        padding-top: 20px;
     }
 
     #intro-right {
-        width: 20%;
+        border-left: 2px darkgray solid;
+        padding-left: 70px;
+        padding-top: 20px;
     }
 
     #avatar {
@@ -159,6 +162,8 @@
     #logout-btn {
         width: fit-content;
         margin-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     #logout-btn:hover {
@@ -167,7 +172,7 @@
 
     #order-area {
         width: 70%;
-        margin: 10vh auto;
+        margin: 12vh auto;
     }
 
     #order-title-area {
