@@ -69,7 +69,6 @@ import MovieFooter from './MovieFooter.vue';
 import MovieHeaderBackup from './MovieHeaderBackup.vue';
 import config from '@/config';
 import TicketModal from './TicketModal.vue';
-import decodeJWT2Obj from '@/tools';
 
 export default {
   components: {
@@ -87,17 +86,22 @@ export default {
     };
   },
   created(){
-    const token = localStorage.getItem('jwt');
-    if (token && token.length != 0) {
-      const decoded = decodeJWT2Obj(token);
-      this.userId = decoded.payload.userId; // 假设用户名在 JWT 的 sub 字段中
-    } else {
-      this.userId = null;
-    }
+    this.fetchUserId();
     this.fetchMovieDetail();
     this.fetchCinemasByMovie();
   },
   methods:{
+    async fetchUserId() {
+      try {
+        const response = await axios.post(`/user/getUserInfo`);
+        if (response.data.code == 200) {
+          const data = response.data.data;
+          this.userId = data.userId;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async fetchMovieDetail() {
       this.movieId = this.$route.params.movieId;
       try {
@@ -141,6 +145,7 @@ export default {
       }
       this.dialogVisible = true;
       this.curCinema = cinema;
+      this.cinemaId = cinema.cinemaId;
     },
     /**
      * 

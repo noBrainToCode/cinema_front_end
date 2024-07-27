@@ -26,6 +26,7 @@
             if (response.data.code == 200) {
                 const data = response.data.data;
                 userId.value = data.userId;
+                fetchOrder();
             } else {
                 // 判定为没有登录，转到登录界面
                 router.push("/login");
@@ -37,6 +38,7 @@
 
     async function fetchOrder() {
         try {
+            console.log(userId.value);
             const response = await axios.get(`/orders/${userId.value}`);
             if (response.data.code == 200) {
                 orders.arr = response.data.data;
@@ -47,7 +49,6 @@
     }
 
     getUserId();
-    fetchOrder();
 </script>
 
 <style scoped>
@@ -60,5 +61,9 @@
         width: 70%;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .card-container {
+        margin-bottom: 30px;
     }
 </style>

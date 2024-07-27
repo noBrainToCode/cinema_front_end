@@ -56,7 +56,7 @@
 
     async function fetchUser() {
         try {
-            const response = await axios.post("/user/getUserInfo");
+            const response = await axios.post(`/user/getUserInfo`);
             if (response.data.code == 200) {
                 const data = response.data.data;
                 user.id = data.userId;
@@ -82,13 +82,12 @@
         try {
             const response = await axios.get(`/orders/${user.id}`);
             if (response.data.code == 200) {
-                const allOrder = response.data.data;
-                // 只放前两个
-                if (allOrder.length > 0) {
-                    orders.arr.push(allOrder[0]);
+                const allOrders = response.data.data;
+                if (allOrders.length >= 1) {
+                    orders.arr.push(allOrders[0]);
                 }
-                if (allOrder.length > 1) {
-                    orders.arr.push(allOrder[1]);
+                if (allOrders.length >= 2) {
+                    orders.arr.push(allOrders[1]);
                 }
             }
         } catch(error) {

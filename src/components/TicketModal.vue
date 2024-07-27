@@ -40,6 +40,7 @@
   <script setup>
   import { reactive, defineProps, defineEmits, watch } from 'vue';
   import axios from 'axios';
+  import config from '@/config';
 
   const props = defineProps({
     modelValue: {
@@ -99,10 +100,9 @@
     order.showTime = new Date(order.showTime).toISOString(); // 将日期转换为字符串类型
     order.seatNumber = order.hallNumber + order.seatNumber;
     order.hallNumber = "Hall " + order.hallNumber;
-    console.log(order);
   
     try {
-      const response = await axios.post('/orders', { params: {
+      const order_data = {
         ticketCount: order.ticketCount,
         hallNumber: order.hallNumber,
         seatNumber: order.seatNumber,
@@ -111,7 +111,9 @@
         movieId: order.movieId,
         cinemaId: order.cinemaId,
         ticketPrice: order.ticketPrice
-      } });
+      }
+      console.log(order_data);
+      const response = await axios.post('/orders', order_data)
       console.log('Order created:', response.data);
       closeModal();
     } catch (error) {

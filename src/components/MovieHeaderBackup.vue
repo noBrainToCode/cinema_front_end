@@ -10,13 +10,15 @@
         </nav>
       </header>
       <div class="search-bar">
-        <input type="text" placeholder="Search" />
+        <input type="text" placeholder="Search" @keydown="SearchButtonDown"/>
       </div>
   </div>
 </template>
 
-<script>
-export default {
-
-}
+<script setup>
+  function SearchButtonDown(event) {
+    if (event.code == "Enter") {
+      
+    }
+  }
 </script>
