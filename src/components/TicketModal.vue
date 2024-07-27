@@ -40,7 +40,6 @@
   <script setup>
   import { reactive, defineProps, defineEmits, watch } from 'vue';
   import axios from 'axios';
-  import config from '@/config';
 
   const props = defineProps({
     modelValue: {
@@ -112,7 +111,6 @@
         cinemaId: order.cinemaId,
         ticketPrice: order.ticketPrice
       }
-      console.log(order_data);
       const response = await axios.post('/orders', order_data)
       console.log('Order created:', response.data);
       closeModal();

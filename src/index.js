@@ -9,6 +9,7 @@ import CinemaDetail from './components/CinemaDetail.vue';
 import UserRegister from './components/UserRegister.vue';
 import UserCenter from './components/UserCenter.vue';
 import OrderContent from './components/OrderContent.vue';
+import MovieSearchPage from './components/MovieSearchPage.vue';
 
 const routes = [
   {  
@@ -49,6 +50,11 @@ const routes = [
     path: '/order',
     component: OrderContent,
     name: 'OrderContent'
+  },
+  {
+    path: '/searchMovies/:partText',
+    component: MovieSearchPage,
+    name: 'MovieSearch'
   }
 ];
 
