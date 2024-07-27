@@ -1,34 +1,38 @@
 <template>
     <movie-header-backup></movie-header-backup>
-    <div id="intro-area">
-        <div id="intro-left">
-            <div id="avatar">{{ user.first_letter }}</div>
-            <div @click="logout()" id="logout-btn">登出</div>
-        </div>
+        <div id="intro-area">
+            <div id="intro-left">
+                <div id="avatar">{{ user.first_letter }}</div>
+                <div @click="logout()" id="logout-btn">登出</div>
+            </div>
             <div id="intro-right">
                 <div class="intro-block">
-                <span>用户名</span>
-                <span id="username">{{ user.name }}</span>
-            </div>
-            <div class="intro-block">
-                <span>性别</span>
-                <span id="gender">{{ user.gender }}</span>
-            </div>
-            <div class="intro-block">
-                <span>年龄</span>
-                <span id="age">{{ user.age }}</span>
+                    <span class="intro-label">用户名</span>
+                    <span>{{ user.name }}</span>
+                </div>
+                <div class="intro-block">
+                    <span class="intro-label">ID号</span>
+                    <span>{{ user.id }}</span>
+                </div>
+                <div class="intro-block">
+                    <span class="intro-label">性别</span>
+                    <span>{{ user.gender }}</span>
+                </div>
+                <div class="intro-block">
+                    <span class="intro-label">年龄</span>
+                    <span>{{ user.age }}</span>
+                </div>
             </div>
         </div>
-
-    </div>
-    <div id="order-area">
-        <span>订单</span>
-        <div v-for="order in orders.arr">
-            <order-card v-bind="order"></order-card>
-        </div>
-    </div>  
-    <!-- <span id="username">fd</span> -->
-    <!-- <span>d</span> -->
+        <div id="order-area">
+            <div id="order-title-area">
+                <span id="order-title">订单</span>
+                <span id="more-order-btn" @click="toOrderPage()">查看更多订单</span>
+            </div>
+            <div v-for="order in orders.arr">
+                <order-card v-bind="order"></order-card>
+            </div>
+        </div>  
 </template>
 
 <script setup>
@@ -78,7 +82,14 @@
         try {
             const response = await axios.get(`/orders/${user.id}`);
             if (response.data.code == 200) {
-                orders.arr = response.data.data;
+                const allOrder = response.data.data;
+                // 只放前两个
+                if (allOrder.length > 0) {
+                    orders.arr.push(allOrder[0]);
+                }
+                if (allOrder.length > 1) {
+                    orders.arr.push(allOrder[1]);
+                }
             }
         } catch(error) {
             console.log(error);
@@ -98,19 +109,26 @@
         }
     }
 
+    function toOrderPage() {
+        router.push("/order");
+    }
+
     fetchUser();
 </script>
 
 <style scoped>
     #intro-area {
         display: flex;
-        width: 70%;
-        margin: 100px auto;
         justify-content: center;
+        margin-top: 40px;
     }
 
     #intro-left {
-        width: 40%;
+        width: 20%;
+    }
+
+    #intro-right {
+        width: 20%;
     }
 
     #avatar {
@@ -126,20 +144,22 @@
         font-weight: bold;
     }
 
-    #username {
-        font-size: 2em;
-    }
-
     .intro-block {
         width: 100%;
+        text-align: left;
+        margin-bottom: 20px;
+        font-size: 1.1em;
     }
 
-    .intro-block span {
-        margin-right: 30px;
+    .intro-label {
+        display: inline-block;
+        width: 90px;
+        font-weight: bolder;
     }
 
     #logout-btn {
         width: fit-content;
+        margin-top: 20px;
     }
 
     #logout-btn:hover {
@@ -149,5 +169,26 @@
     #order-area {
         width: 70%;
         margin: 10vh auto;
+    }
+
+    #order-title-area {
+        height: 60px;
+    }
+
+    #order-title {
+        font-size: 1.5em;
+        float: left;
+    }
+
+    #more-order-btn {
+        float: right;
+    }
+
+    #more-order-btn:hover {
+        cursor: pointer;
+    }
+
+    .card-container {
+        margin-bottom: 30px;
     }
 </style>

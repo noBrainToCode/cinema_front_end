@@ -8,6 +8,7 @@ import UserLogin from './components/UserLogin.vue';
 import CinemaDetail from './components/CinemaDetail.vue';
 import UserRegister from './components/UserRegister.vue';
 import UserCenter from './components/UserCenter.vue';
+import OrderContent from './components/OrderContent.vue';
 
 const routes = [
   {  
@@ -43,6 +44,11 @@ const routes = [
     path: '/user',
     component: UserCenter,
     name: 'UserCenter'
+  },
+  {
+    path: '/order',
+    component: OrderContent,
+    name: 'OrderContent'
   }
 ];
 
