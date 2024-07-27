@@ -27,10 +27,9 @@
     async function fetchMovies() {
         try {
             const partText = router.currentRoute.value.params.partText;
-            // const response = await axios.get(`/searchMovies/${partText}`);
-            const response = await axios.get(`${config.url}movies/1`);
+            const response = await axios.get(`/searchMovies/${partText}`);
             if (response.data.code == 200) {
-                movies.arr = response.data.data.list;
+                movies.arr = response.data.data;
             }
         } catch (error) {
             console.log(error);
